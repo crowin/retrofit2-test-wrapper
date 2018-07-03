@@ -1,13 +1,16 @@
 # retrofit2-test-wrapper
 Retrofit2 applying in functional tests
+-------------------------
 
 1. TEST SETTINGS EXAMPLE:
 
 Test class
-
-public class PersonTest {
+-
+```java
+public class PersonTest{
+    
     ServicesManager api = new ServicesManager();
-
+    
     @Test
     public void personShouldBeInResponse() {
         ResponseContext<PeopleEntity, String> people = api.people().get(1);
@@ -22,9 +25,11 @@ public class PersonTest {
         Assert.assertTrue(people.getError().getMessage().contains("Not found"));
     }
 }
+```
 
 Settings class
-
+-
+```java
 public class ClientBuilder implements ClientBuilderInterface {
     @Override
     public String getBaseUrl() {
@@ -36,44 +41,54 @@ public class ClientBuilder implements ClientBuilderInterface {
         return true;
     }
 }
+```
 
 Class which must be extended in service api classes
-
+```java
 public class BaseClient extends ClientAbstract {
 
     public BaseClient() {
         super(new ClientBuilder());
     }
+    
 }
-
+```
 
 2. TEST API EXAMPLE:
 
-Api interface:
+Api interface
+-
+```java
 public interface PeopleInterface {
 
     @GET("people/{id}")
     Call<ResponseBody> get(@Path("id") int userId);
 }
+```
 
 Service class:
-
+```java
 public class PeopleClient extends BaseClient {
-    private PeopleInterface service = apiClient.create(PeopleInterface.class);
+   
+   private PeopleInterface service = apiClient.create(PeopleInterface.class);
 
     public ResponseContext<PeopleEntity, String> get(int id) {
         Call<ResponseBody> callResponse = service.get(id);
         return getResponseContext(callResponse, PeopleEntity.class, String.class);
     }
 }
+```
 
-Class helper:
-
+Class helper
+-
+```java
 public class ServicesManager {
 
     public PeopleClient people() {
         return new PeopleClient();
     }
 }
+```
+
 
 
