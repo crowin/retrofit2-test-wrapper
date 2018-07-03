@@ -1,8 +1,9 @@
 # retrofit2-test-wrapper
-Retrofit2 applying in functional tests
--------------------------
 
-1. TEST SETTINGS EXAMPLE:
+# Retrofit2 applying in functional tests
+
+
+# 1. TEST SETTINGS EXAMPLE:
 
 Test class
 -
@@ -54,7 +55,7 @@ public class BaseClient extends ClientAbstract {
 }
 ```
 
-2. TEST API EXAMPLE:
+# 2. TEST API EXAMPLE:
 
 Api interface
 -
@@ -67,6 +68,7 @@ public interface PeopleInterface {
 ```
 
 Service class:
+-
 ```java
 public class PeopleClient extends BaseClient {
    
